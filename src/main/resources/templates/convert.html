@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Конвертер валют</title>
+</head>
+<body>
+<h1> Конвертер валюты </h1>
+<form method = "POST"  th:object="${ConvertedCurrency}">
+    <label>
+        <select class = "CurrencyConverter" id = "0" name = "initCurrency">
+        <div th:each="currency : ${currencies}">
+            <option th:value = "${currency.id}" th:text="${currency.name}"></option>
+        </div>
+        </select>
+        <input type = "text" th:field="*{amountBeforeExchange}">
+
+    </label>
+<br/>
+    <label>
+        <select class = "CurrencyConverter" id = "1" name = "targetCurrency">
+        <div th:each="currency : ${currencies}">
+            <option th:value = "${currency.id}" th:text="${currency.name}"></option>
+        </div>
+    </select>
+        <input type = "hidden" th:field="*{amountAfterExchange}">
+    </label>
+    <p><input type="submit" value="Конвертировать"></p>
+</form>
+<form action="/history">
+    <button>История конвертаций</button>
+</form>
+</body>
+</html>

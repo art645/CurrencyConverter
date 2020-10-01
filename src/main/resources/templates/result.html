@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Конвертер валют</title>
+</head>
+<body>
+<h1>Результат конвертации</h1>
+<table>
+    <tr>
+        <th>Исходная сумма</th>
+        <th>Исходная валюта</th>
+        <th>Полученная сумма</th>
+        <th>Целевая валюта</th>
+    </tr>
+    <tr>
+        <td th:text ="${ConvertationResult.amountBeforeExchange}"></td>
+        <td th:text ="${ConvertationResult.initCurrency}"></td>
+        <td th:text ="${ConvertationResult.amountAfterExchange}"></td>
+        <td th:text ="${ConvertationResult.targetCurrency}"></td>
+    </tr>
+</table>
+<br/>
+<form action="/history">
+    <button>История конвертаций</button>
+</form>
+<br/>
+<form action="/convert">
+    <button>Вернуться в конвертер</button>
+</form>
+</body>
+</html>
