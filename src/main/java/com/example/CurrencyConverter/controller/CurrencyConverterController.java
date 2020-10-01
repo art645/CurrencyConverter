@@ -63,14 +63,14 @@ public class CurrencyConverterController {
     public double exchangeCurrency(ConvertedCurrency convertedCurrency) {
         Optional<Currency> initCurrency = currencyRepository.findById(convertedCurrency.getInitCurrency());
         Optional<Currency> targetCurrency = currencyRepository.findById(convertedCurrency.getTargetCurrency());
-        double initCurrencyValue = parseCurrencyValue(initCurrency.get().getValue());
-        double targetCurrencyValue = parseCurrencyValue(targetCurrency.get().getValue());
+        double initCurrencyValue = parseStringToDouble(initCurrency.get().getValue());
+        double targetCurrencyValue = parseStringToDouble(targetCurrency.get().getValue());
         double initCourse = initCurrency.get().getNominal()/initCurrencyValue;
         double targetCourse = targetCurrency.get().getNominal()/targetCurrencyValue;
-        double amountAfterExchange = Double.parseDouble(convertedCurrency.getAmountBeforeExchange()) * targetCourse / initCourse;
+        double amountAfterExchange = parseStringToDouble(convertedCurrency.getAmountBeforeExchange()) * targetCourse / initCourse;
         return roundResult(amountAfterExchange);
     }
-    public double parseCurrencyValue (String value) {
+    public double parseStringToDouble (String value) {
         return Double.parseDouble(value.replace(",","."));
 
     }
