@@ -25,7 +25,5 @@ public class ConvertedCurrency {
     private Date date;
 
     @PrePersist
-    void createdAt() {
-        this.date = new Date();
-    }
+    void createdAt() { this.date = new Date(); }
 }

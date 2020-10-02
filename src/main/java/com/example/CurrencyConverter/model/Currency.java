@@ -13,11 +13,12 @@ import javax.persistence.Id;
 @NoArgsConstructor(access = AccessLevel.PRIVATE,force = true)
 @Entity
 public class Currency {
-    @Id
+
     private final String id;
     private final int numcode;
     private final String charcode;
     private final int nominal;
+    @Id
     private final String name;
     private final String value;
 }

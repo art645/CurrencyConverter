@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -32,7 +30,7 @@ public class CurrencyConverterController {
     }
 
     @GetMapping
-    public String showCurrency(Model model) {
+    public String showCurrencyConverter(Model model) {
         List<Currency> currencies = new ArrayList<>();
         currencyRepository.findAll().forEach(i -> currencies.add(i));
             model.addAttribute("currencies",currencies);
@@ -41,16 +39,12 @@ public class CurrencyConverterController {
     }
 
     @PostMapping
-    public String showConvertationResult(@Valid ConvertedCurrency convertedCurrency, Errors errors) {
+    public String proccesCurrencyConvertation(@Valid ConvertedCurrency convertedCurrency, Errors errors) {
         if (errors.hasErrors()) {
             return "redirect:/convert";
         }
-        Optional<Currency> initCurrency = currencyRepository.findById(convertedCurrency.getInitCurrency());
-        Optional<Currency> targetCurrency = currencyRepository.findById(convertedCurrency.getTargetCurrency());
         double amountAfterExchange = exchangeCurrency(convertedCurrency);
         convertedCurrency.setAmountAfterExchange(amountAfterExchange);
-        convertedCurrency.setInitCurrency(initCurrency.get().getName());
-        convertedCurrency.setTargetCurrency(targetCurrency.get().getName());
         valueTo = convertedCurrency;
         convertedCurrencyRepository.save(convertedCurrency);
         return "redirect:/convert/result";
